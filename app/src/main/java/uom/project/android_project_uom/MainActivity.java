@@ -1,9 +1,7 @@
 package uom.project.android_project_uom;
 
 import android.content.Intent;
-import android.os.StrictMode;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +10,7 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener
 {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -22,6 +21,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         ImageButton twitterTrendsBtn = findViewById(R.id.twitterTrendsBtn);
         twitterTrendsBtn.setOnClickListener(this);
+
+
 
 
     }
