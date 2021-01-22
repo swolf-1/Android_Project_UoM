@@ -44,20 +44,23 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     /*New one*/
     implementation ('com.codepath.libraries:android-oauth-handler:2.2.0@aar')
-
-
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'com.android.volley:volley:1.1.1'
-
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-
     /*New one*/
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.1.0'
     implementation files('libs/twitter4j-core-4.0.7.jar')
+
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
+    implementation 'com.facebook.android:facebook-login:5.15.3'
+
+
 
 
 
