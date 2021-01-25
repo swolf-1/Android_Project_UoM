@@ -4,6 +4,9 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
+    <uses-permission android:name="android.permission.MANAGE_DOCUMENTS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
@@ -33,6 +36,9 @@
                 android:name="com.facebook.FacebookActivity"
                 android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
                 android:label="@string/app_name"/>
-    </application>
 
+        <provider android:authorities="com.facebook.app.FacebookContentProvider3586803168036010"
+                  android:name="com.facebook.FacebookContentProvider"
+                  android:exported="true"/>
+    </application>
 </manifest>
