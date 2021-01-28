@@ -3,10 +3,22 @@
 
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         tools:context=".CreatPost">
 
+    <com.facebook.login.widget.LoginButton
+            android:id="@+id/login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            app:layout_constraintEnd_toStartOf="@+id/usersName"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/postText"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="40dp"
+    />
     <EditText
             android:layout_width="282dp"
             android:layout_height="160dp"
@@ -14,11 +26,14 @@
             android:text="Write Here"
             android:ems="15"
             android:id="@+id/postText"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:background="#535353"
-            app:layout_constraintBottom_toTopOf="@+id/imageView8" android:layout_marginTop="50dp"
-            app:layout_constraintVertical_bias="0.0" app:layout_constraintHorizontal_bias="0.519"/>
+            app:layout_constraintBottom_toTopOf="@+id/imageView8"
+            android:layout_marginTop="50dp"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.519"/>
     <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" app:srcCompat="@android:drawable/ic_menu_gallery"
@@ -117,19 +132,24 @@
     <TextView
             android:text="You are log in as:"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/loggedAsTXT"
-            android:background="#FFFFFF" android:textColor="#000000"
+            android:layout_height="wrap_content"
+            android:id="@+id/loggedAsTXT"
+            android:background="#FFFFFF"
+            android:textColor="#000000"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/postText" app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintBottom_toTopOf="@+id/postText"
+            app:layout_constraintVertical_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="120dp"/>
+            android:layout_marginStart="126dp"
+            app:layout_constraintEnd_toStartOf="@+id/usersName"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="0dp" android:id="@+id/usersName"
+            android:layout_width="147dp"
+            android:layout_height="19dp" android:id="@+id/usersName"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/postText" android:layout_marginBottom="31dp"
-            app:layout_constraintStart_toEndOf="@+id/loggedAsTXT" android:textColor="#FF0000"
-            app:layout_constraintEnd_toStartOf="@+id/logOutBTN"/>
+            android:textColor="#FF0000"
+            app:layout_constraintEnd_toStartOf="@+id/logOutBTN"
+            app:layout_constraintStart_toEndOf="@+id/loggedAsTXT"/>
 
     <ImageButton
             android:id="@+id/logOutBTN"
@@ -138,8 +158,9 @@
             android:layout_gravity="center_horizontal"
             app:srcCompat="@drawable/logout" android:background="#FFFFFF"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginBottom="163dp"
-            app:layout_constraintBottom_toTopOf="@+id/postImg" app:layout_constraintStart_toEndOf="@+id/usersName"/>
+            android:layout_marginBottom="163dp"
+            app:layout_constraintBottom_toTopOf="@+id/postImg"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Environment;
 import android.os.Handler;
+import android.os.Looper;
 import android.se.omapi.Session;
 import android.util.Log;
 import android.view.View;
@@ -16,10 +18,12 @@ import com.facebook.*;
 import com.facebook.login.Login;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareButton;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import com.facebook.FacebookSdk;
@@ -39,6 +43,10 @@ public class CreatPost extends AppCompatActivity {
     ImageView targetImage;
     ImageButton selectImageBTN,log_outBTN;
     Bitmap bitmap;
+    Uri targetUri;
+    LoginButton loginButton;
+
+
 
 
 
@@ -58,10 +66,14 @@ public class CreatPost extends AppCompatActivity {
         usersNameTXT = findViewById(R.id.usersName);
         log_outBTN = findViewById(R.id.logOutBTN);
         loggedAsTXT = findViewById(R.id.loggedAsTXT);
+        loginButton = findViewById(R.id.login_button);
 
 
 
         callbackManager = CallbackManager.Factory.create();
+
+
+
 
 
         if (isFacebookLoggedIn()){
@@ -80,17 +92,31 @@ public class CreatPost extends AppCompatActivity {
         });
 
 
+
         postBTN.setOnClickListener(v -> {
 
             if (fbBox.isChecked()){
 
-                facebookLogin();
+                if (targetImage.getDrawable() == null){
+                    Toast.makeText(getApplicationContext(),"No photo selected", Toast.LENGTH_LONG).show();
+                }else{
+                    sharePhoto(bitmap);
+                }
+            }
 
-                sharePhoto(bitmap);
+            if (igBox.isChecked()){
+
+
+                if (targetImage.getDrawable() == null){
+                    Toast.makeText(getApplicationContext(),"No photo selected", Toast.LENGTH_LONG).show();
+                }else{
+                    Intent intent = shareInstagram(targetUri);
+                    startActivity(intent);
+                }
+
 
 
             }
-
         });
 
         selectImageBTN.setOnClickListener(v -> {
@@ -110,7 +136,8 @@ public class CreatPost extends AppCompatActivity {
 
         if (resultCode == RESULT_OK && data.getData()!= null) {
             //For the selected photo from gallery
-            Uri targetUri = data.getData();
+            targetUri = data.getData();
+
             try {
                 bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
                 targetImage.setImageBitmap(bitmap);
@@ -161,6 +188,8 @@ public class CreatPost extends AppCompatActivity {
     public void setUsersNameOnTop(){
 
         loggedAsTXT.setVisibility(View.VISIBLE);
+        loginButton.setVisibility(View.INVISIBLE);
+
         GraphRequest graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(),
                 (object, response) -> {
 
@@ -189,6 +218,7 @@ public class CreatPost extends AppCompatActivity {
         usersNameTXT.setText("You are NOT logged in yet.");
         loggedAsTXT.setVisibility(View.INVISIBLE);
         log_outBTN.setVisibility(View.INVISIBLE);
+        loginButton.setVisibility(View.VISIBLE);
     }
 
 
@@ -207,14 +237,18 @@ public class CreatPost extends AppCompatActivity {
         ShareDialog dialog = new ShareDialog(this);
         dialog.show(sharePhotoContent);
 
-        /*
 
-        SharePhoto photo = new SharePhoto.Builder().setBitmap(bm).build();
-        SharePhotoContent content = new SharePhotoContent.Builder().addPhoto(photo).build();
-        ShareDialog dialog = new ShareDialog(this);
-        dialog.show(content);
 
-         */
+    }
+
+    private Intent shareInstagram(Uri uri) {
+
+        Intent postPhoto = new Intent(Intent.ACTION_SEND);
+        postPhoto.setType("image/*");
+        postPhoto.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        postPhoto.putExtra(Intent.EXTRA_STREAM, targetUri);
+        postPhoto.setPackage("com.instagram.android");
+        return  postPhoto;
 
 
     }
