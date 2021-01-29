@@ -1,6 +1,7 @@
 package uom.project.android_project_uom;
 
 import android.content.Intent;
+import android.widget.Button;
 import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +22,9 @@ public class MainActivity extends AppCompatActivity
 
         ImageButton cratePostBTN = findViewById(R.id.CreatePostbtn);
         cratePostBTN.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, CreatPost.class)));
+
+        Button storyBTN = findViewById(R.id.CreateStroyButton);
+        storyBTN.setOnClickListener(v-> startActivity(new Intent(MainActivity.this,StoryActivity.class)));
         
 
     }

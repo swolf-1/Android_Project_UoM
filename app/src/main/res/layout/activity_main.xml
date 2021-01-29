@@ -12,19 +12,27 @@
             android:layout_height="wrap_content" app:srcCompat="@drawable/button_explore_trends"
             android:id="@+id/twitterTrendsBtn"
             android:background="#00FFFFFF"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/CreatePostbtn" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"/>
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="165dp" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginBottom="39dp"
+            app:layout_constraintBottom_toTopOf="@+id/CreatePostbtn" app:layout_constraintVertical_bias="0.0"/>
     <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" app:srcCompat="@drawable/button_create_post"
             android:id="@+id/CreatePostbtn"
             android:background="#00FFFFFF"
-            app:layout_constraintEnd_toEndOf="@+id/twitterTrendsBtn"
-            app:layout_constraintStart_toStartOf="@+id/twitterTrendsBtn"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="32dp"
             app:layout_constraintTop_toBottomOf="@+id/twitterTrendsBtn"
-            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="24dp"
-    />
+            android:layout_marginBottom="37dp" app:layout_constraintBottom_toTopOf="@+id/CreateStroyButton"/>
+    <Button
+            android:text="Creat Story"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/CreateStroyButton"
+            android:background="#000000" android:textColor="#FFFFFF"
+            android:layout_marginTop="37dp" app:layout_constraintTop_toBottomOf="@+id/CreatePostbtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="317dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

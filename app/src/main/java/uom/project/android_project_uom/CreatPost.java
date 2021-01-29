@@ -1,36 +1,30 @@
 package uom.project.android_project_uom;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Environment;
-import android.os.Handler;
-import android.os.Looper;
-import android.se.omapi.Session;
-import android.util.Log;
+import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import com.facebook.*;
-import com.facebook.login.Login;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareButton;
+import com.facebook.share.widget.ShareDialog;
+import org.json.JSONException;
+import twitter4j.*;
+import twitter4j.conf.ConfigurationBuilder;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
-import com.facebook.FacebookSdk;
-import com.facebook.share.widget.ShareDialog;
-import com.squareup.picasso.Picasso;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.net.URI;
+import java.util.Collections;
 
 public class CreatPost extends AppCompatActivity {
 
@@ -54,6 +48,8 @@ public class CreatPost extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creat_post);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         fbBox = findViewById(R.id.facebookCheckBox);
         igBox = findViewById(R.id.instagramCheckBox);
@@ -68,12 +64,7 @@ public class CreatPost extends AppCompatActivity {
         loggedAsTXT = findViewById(R.id.loggedAsTXT);
         loginButton = findViewById(R.id.login_button);
 
-
-
         callbackManager = CallbackManager.Factory.create();
-
-
-
 
 
         if (isFacebookLoggedIn()){
@@ -87,10 +78,9 @@ public class CreatPost extends AppCompatActivity {
             LoginManager.getInstance().logOut();
             removeUsersName();
 
-            Toast.makeText(getApplicationContext(),"You are successfully logged out.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"You are successfully logged out from facebook.", Toast.LENGTH_LONG).show();
 
         });
-
 
 
         postBTN.setOnClickListener(v -> {
@@ -110,9 +100,14 @@ public class CreatPost extends AppCompatActivity {
                 if (targetImage.getDrawable() == null){
                     Toast.makeText(getApplicationContext(),"No photo selected", Toast.LENGTH_LONG).show();
                 }else{
-                    Intent intent = shareInstagram(targetUri);
+                    Intent intent = shareInstagram();
                     startActivity(intent);
                 }
+            }
+
+            if (twitBox.isChecked()){
+
+                postOnTwitter();
 
 
 
@@ -164,7 +159,7 @@ public class CreatPost extends AppCompatActivity {
 
     public void facebookLogin(){
 
-        LoginManager.getInstance().logInWithReadPermissions(CreatPost.this,Arrays.asList("user_gender, user_friends"));
+        LoginManager.getInstance().logInWithReadPermissions(CreatPost.this, Collections.singletonList("user_gender, user_friends"));
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -241,7 +236,7 @@ public class CreatPost extends AppCompatActivity {
 
     }
 
-    private Intent shareInstagram(Uri uri) {
+    private Intent shareInstagram() {
 
         Intent postPhoto = new Intent(Intent.ACTION_SEND);
         postPhoto.setType("image/*");
@@ -249,6 +244,37 @@ public class CreatPost extends AppCompatActivity {
         postPhoto.putExtra(Intent.EXTRA_STREAM, targetUri);
         postPhoto.setPackage("com.instagram.android");
         return  postPhoto;
+
+
+    }
+
+    private void postOnTwitter(){
+
+        File file = new File(targetUri.getPath());
+
+
+        ConfigurationBuilder cb = new ConfigurationBuilder();
+        cb.setDebugEnabled(true)
+                .setOAuthConsumerKey("nuol21SMZBdqPn9TOFhAoTxQG")
+                .setOAuthConsumerSecret("tXeYIizXrE0VmV30BwVf6ChyU2ceCpB6ojSD65Hg468E1vcASZ")
+                .setOAuthAccessToken("1323212607143219200-232hw2BbTW7q76CrGN0lNrBUsyi1f7")
+                .setOAuthAccessTokenSecret("i7TplqP1l0poJdlH8tKzeqSsiszt159K6bKGGUDktWILA");
+
+
+        TwitterFactory factory = new TwitterFactory(cb.build());
+        Twitter twitter = factory.getInstance();
+
+
+        try {
+            StatusUpdate status = new StatusUpdate(postTXT.getText().toString());
+            status.setMedia(file);
+            twitter.updateStatus(status);
+            Toast.makeText(getApplicationContext(),"You successfully posted on twitter", Toast.LENGTH_LONG).show();
+        } catch (TwitterException e) {
+            e.printStackTrace();
+        }
+
+
 
 
     }
