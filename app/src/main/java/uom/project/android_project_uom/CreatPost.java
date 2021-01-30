@@ -11,7 +11,6 @@ import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import com.facebook.*;
 import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
@@ -20,11 +19,8 @@ import com.facebook.share.widget.ShareDialog;
 import org.json.JSONException;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
-
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.net.URI;
-import java.util.Collections;
 
 public class CreatPost extends AppCompatActivity {
 
@@ -85,33 +81,23 @@ public class CreatPost extends AppCompatActivity {
 
         postBTN.setOnClickListener(v -> {
 
-            if (fbBox.isChecked()){
+                if (fbBox.isChecked())
+                {
+                        sharePhoto(bitmap);
 
-                if (targetImage.getDrawable() == null){
-                    Toast.makeText(getApplicationContext(),"No photo selected", Toast.LENGTH_LONG).show();
-                }else{
-                    sharePhoto(bitmap);
                 }
-            }
 
-            if (igBox.isChecked()){
-
-
-                if (targetImage.getDrawable() == null){
-                    Toast.makeText(getApplicationContext(),"No photo selected", Toast.LENGTH_LONG).show();
-                }else{
+                if (igBox.isChecked())
+                {
                     Intent intent = shareInstagram();
                     startActivity(intent);
                 }
-            }
 
-            if (twitBox.isChecked()){
+                if (twitBox.isChecked())
+                {
+                    postOnTwitter();
+                }
 
-                postOnTwitter();
-
-
-
-            }
         });
 
         selectImageBTN.setOnClickListener(v -> {
@@ -157,6 +143,7 @@ public class CreatPost extends AppCompatActivity {
     }
 
 
+    /*
     public void facebookLogin(){
 
         LoginManager.getInstance().logInWithReadPermissions(CreatPost.this, Collections.singletonList("user_gender, user_friends"));
@@ -179,6 +166,8 @@ public class CreatPost extends AppCompatActivity {
         });
 
     }
+
+     */
 
     public void setUsersNameOnTop(){
 
@@ -220,6 +209,8 @@ public class CreatPost extends AppCompatActivity {
 
     public void sharePhoto(Bitmap bm){
 
+      
+
 
         SharePhoto sharePhoto = new SharePhoto.Builder()
         .setBitmap(bm)
@@ -231,6 +222,7 @@ public class CreatPost extends AppCompatActivity {
 
         ShareDialog dialog = new ShareDialog(this);
         dialog.show(sharePhotoContent);
+        
 
 
 
@@ -238,15 +230,17 @@ public class CreatPost extends AppCompatActivity {
 
     private Intent shareInstagram() {
 
-        Intent postPhoto = new Intent(Intent.ACTION_SEND);
+
+        Intent postPhoto = new Intent("com.instagram.share.ADD_TO_FEED");
         postPhoto.setType("image/*");
-        postPhoto.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        postPhoto.putExtra(Intent.EXTRA_STREAM, targetUri);
         postPhoto.setPackage("com.instagram.android");
+        postPhoto.setDataAndType(targetUri,"image/*");
+        postPhoto.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        postPhoto.putExtra(Intent.EXTRA_STREAM, targetUri);
+
         return  postPhoto;
-
-
     }
+
 
     private void postOnTwitter(){
 
@@ -278,6 +272,8 @@ public class CreatPost extends AppCompatActivity {
 
 
     }
+
+
 }
 
 

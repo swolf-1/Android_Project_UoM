@@ -24,13 +24,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
         }
     }
 
     buildTypes.each {
         it.buildConfigField 'String', 'TwitterApiKey', TWITTER_API_KEY
         it.buildConfigField 'String', 'TwitterApiSecretKey', TWITTER_API_SECRET_KEY
-        it.buildConfigField 'String', 'TwitterBearerToken', TWITTER_BEARER_TOKEN
         it.buildConfigField 'String', 'TwitterAccessToken', TWITTER_ACCESS_TOKEN
         it.buildConfigField 'String', 'TwitterAccessTokenSecret', TWITTER_ACCESS_TOKEN_SECRET
     }

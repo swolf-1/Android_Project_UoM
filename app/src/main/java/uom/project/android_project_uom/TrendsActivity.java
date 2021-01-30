@@ -14,7 +14,6 @@ import com.android.volley.RequestQueue;
 
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.facebook.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import twitter4j.*;
@@ -26,6 +25,7 @@ public class TrendsActivity extends AppCompatActivity
     private Twitter twitter;
     private RequestQueue mQueue;
     private ListView listView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -84,19 +84,14 @@ public class TrendsActivity extends AppCompatActivity
                                                 }
                                             });
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-                                        {
-                                            @Override
-                                            public void onItemClick(AdapterView<?> parent, View view, int i, long id)
-                                            {
-                                                Intent intent = new Intent(TrendsActivity.this, PostsActivity.class);
-                                                intent.putExtra("HashtagForSearch",listView.getItemAtPosition(i).toString());
-                                                startActivity(intent);
+        listView.setOnItemClickListener((parent, view, i, id) -> {
+            Intent intent = new Intent(TrendsActivity.this, PostsActivity.class);
+            intent.putExtra("HashtagForSearch",listView.getItemAtPosition(i).toString());
+            startActivity(intent);
 
 
 
-                                            }
-                                        });
+        });
 
     }
 
