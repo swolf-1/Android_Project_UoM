@@ -13,7 +13,6 @@ import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import com.facebook.*;
 import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
@@ -24,7 +23,6 @@ import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 
 public class CreatPost extends AppCompatActivity {
 

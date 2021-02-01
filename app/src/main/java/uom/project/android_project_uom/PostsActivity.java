@@ -1,10 +1,6 @@
 package uom.project.android_project_uom;
 
-import android.content.Intent;
 import android.os.StrictMode;
-
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;

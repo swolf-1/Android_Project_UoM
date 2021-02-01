@@ -1,6 +1,5 @@
 package uom.project.android_project_uom;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -22,7 +21,7 @@ import java.io.FileNotFoundException;
 public class StoryActivity extends AppCompatActivity {
 
     Button postBTN,selectBTN;
-    CheckBox fb_checkBox,ig_checkBox,twitter_checkBox;
+    CheckBox fb_checkBox,ig_checkBox;
     ImageView theImage;
 
     Uri targetUri;

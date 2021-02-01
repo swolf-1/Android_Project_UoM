@@ -2,7 +2,6 @@ package uom.project.android_project_uom;
 
 import android.content.Intent;
 import android.widget.Button;
-import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.android.volley.RequestQueue;
@@ -11,14 +10,10 @@ import com.android.volley.toolbox.Volley;
 public class MainActivity extends AppCompatActivity {
 
 
-    private RequestQueue mQueue;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mQueue = Volley.newRequestQueue(this);
 
         Button twitterTrendsBtn = findViewById(R.id.twitterTrendsBtn);
         twitterTrendsBtn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, TrendsActivity.class)));
