@@ -16,15 +16,29 @@
     />
     <LinearLayout
             android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="110dp">
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/postText"
-                android:text="post"
-                android:textSize="14sp"
-        />
+            android:layout_width="340dp"
+            android:layout_height="189dp">
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <ImageView
+                    android:layout_width="114dp"
+                    android:layout_height="match_parent" tools:srcCompat="@tools:sample/avatars"
+                    android:id="@+id/photo"/>
+            <TextView
+                    android:layout_width="225dp"
+                    android:layout_height="154dp"
+                    android:id="@+id/postText"
+                    android:text="post"
+                    android:textSize="14sp"
+            />
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" tools:srcCompat="@tools:sample/avatars"
+                    android:id="@+id/imageView11"/>
+        </LinearLayout>
 
     </LinearLayout>
+
 </LinearLayout>

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import com.squareup.picasso.Picasso;
 
 
 import java.util.ArrayList;
@@ -14,13 +15,15 @@ public class ProgramAdapter extends ArrayAdapter<String>
     Context contex;
     int img;
     ArrayList<String> post;
+    ArrayList<String> photoUrls;
 
-    public ProgramAdapter( Context context,ArrayList<String> post, int img)
+    public ProgramAdapter( Context context,ArrayList<String> post, int img,ArrayList<String> photoUrls)
     {
         super(context,R.layout.single_post,R.id.postText,post);
         this.contex = context;
         this.post = post;
         this.img = img;
+        this.photoUrls = photoUrls;
     }
 
 
@@ -42,8 +45,18 @@ public class ProgramAdapter extends ArrayAdapter<String>
             holder = (ProgramViewHolder) singlePost.getTag();
         }
 
-        holder.image.setImageResource(img);
+        if(photoUrls.get(position).startsWith("https://scontent.cdninstagram.com/"))
+        {
+            holder.image.setImageResource(R.drawable.insta);
+        }
+        else
+        {
+            holder.image.setImageResource(R.drawable.twitter);
+
+        }
+
         holder.post.setText(post.get(position));
+        Picasso.get().load(photoUrls.get(position)).into(holder.photo);
 
         return singlePost;
     }

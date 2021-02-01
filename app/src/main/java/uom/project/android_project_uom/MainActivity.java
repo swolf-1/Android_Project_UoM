@@ -5,28 +5,30 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+
+public class MainActivity extends AppCompatActivity {
 
 
-public class MainActivity extends AppCompatActivity
-{
+    private RequestQueue mQueue;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mQueue = Volley.newRequestQueue(this);
 
-        ImageButton twitterTrendsBtn = findViewById(R.id.twitterTrendsBtn);
-        twitterTrendsBtn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,TrendsActivity.class)));
+        Button twitterTrendsBtn = findViewById(R.id.twitterTrendsBtn);
+        twitterTrendsBtn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, TrendsActivity.class)));
 
-        ImageButton cratePostBTN = findViewById(R.id.CreatePostbtn);
+        Button cratePostBTN = findViewById(R.id.CreatePostbtn);
         cratePostBTN.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, CreatPost.class)));
 
         Button storyBTN = findViewById(R.id.CreateStroyButton);
-        storyBTN.setOnClickListener(v-> startActivity(new Intent(MainActivity.this,StoryActivity.class)));
-        
+        storyBTN.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, StoryActivity.class)));
+
 
     }
-
 }

@@ -1,16 +1,19 @@
 package uom.project.android_project_uom;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import com.facebook.*;
 import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
@@ -21,9 +24,9 @@ import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 
 public class CreatPost extends AppCompatActivity {
-
 
     CheckBox fbBox, igBox, twitBox;
     Button postBTN;
@@ -36,9 +39,10 @@ public class CreatPost extends AppCompatActivity {
     Uri targetUri;
     LoginButton loginButton;
 
-
-
-
+    private static final String TWITTER_API_KEY = BuildConfig.TwitterApiKey;
+    private static final String TWITTER_API_SECRET = BuildConfig.TwitterApiSecretKey;
+    private static final String TWITTER_ACCESS_TOKEN = BuildConfig.TwitterAccessToken;
+    private static final String TWITTER_ACCESS_TOKEN_SECRET = BuildConfig.TwitterAccessTokenSecret;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +67,12 @@ public class CreatPost extends AppCompatActivity {
         callbackManager = CallbackManager.Factory.create();
 
 
+
+
+
+
+
+
         if (isFacebookLoggedIn()){
             setUsersNameOnTop();
         }
@@ -78,7 +88,6 @@ public class CreatPost extends AppCompatActivity {
 
         });
 
-
         postBTN.setOnClickListener(v -> {
 
                 if (fbBox.isChecked())
@@ -89,8 +98,14 @@ public class CreatPost extends AppCompatActivity {
 
                 if (igBox.isChecked())
                 {
-                    Intent intent = shareInstagram();
-                    startActivity(intent);
+                    if (targetImage.getDrawable() == null){
+                        Toast.makeText(getApplicationContext(),"To create an Instagram post you MUST select a photo..", Toast.LENGTH_LONG).show();
+
+                    }
+                    else {
+                        Intent intent = shareInstagram();
+                        startActivity(intent);
+                    }
                 }
 
                 if (twitBox.isChecked())
@@ -141,33 +156,6 @@ public class CreatPost extends AppCompatActivity {
     public boolean isFacebookLoggedIn(){
         return AccessToken.getCurrentAccessToken() != null;
     }
-
-
-    /*
-    public void facebookLogin(){
-
-        LoginManager.getInstance().logInWithReadPermissions(CreatPost.this, Collections.singletonList("user_gender, user_friends"));
-        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-
-
-            }
-
-            @Override
-            public void onCancel() {
-
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-
-            }
-        });
-
-    }
-
-     */
 
     public void setUsersNameOnTop(){
 
@@ -244,15 +232,14 @@ public class CreatPost extends AppCompatActivity {
 
     private void postOnTwitter(){
 
-        File file = new File(targetUri.getPath());
 
 
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
-                .setOAuthConsumerKey("nuol21SMZBdqPn9TOFhAoTxQG")
-                .setOAuthConsumerSecret("tXeYIizXrE0VmV30BwVf6ChyU2ceCpB6ojSD65Hg468E1vcASZ")
-                .setOAuthAccessToken("1323212607143219200-232hw2BbTW7q76CrGN0lNrBUsyi1f7")
-                .setOAuthAccessTokenSecret("i7TplqP1l0poJdlH8tKzeqSsiszt159K6bKGGUDktWILA");
+                .setOAuthConsumerKey(TWITTER_API_KEY)
+                .setOAuthConsumerSecret(TWITTER_API_SECRET)
+                .setOAuthAccessToken(TWITTER_ACCESS_TOKEN)
+                .setOAuthAccessTokenSecret(TWITTER_ACCESS_TOKEN_SECRET);
 
 
         TwitterFactory factory = new TwitterFactory(cb.build());
@@ -261,7 +248,11 @@ public class CreatPost extends AppCompatActivity {
 
         try {
             StatusUpdate status = new StatusUpdate(postTXT.getText().toString());
-            status.setMedia(file);
+
+            if (targetImage.getDrawable() != null) {
+                File file = new File(getPath(targetUri));
+                status.setMedia(file);
+            }
             twitter.updateStatus(status);
             Toast.makeText(getApplicationContext(),"You successfully posted on twitter", Toast.LENGTH_LONG).show();
         } catch (TwitterException e) {
@@ -271,6 +262,15 @@ public class CreatPost extends AppCompatActivity {
 
 
 
+    }
+
+    public String getPath(Uri uri) {
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+        startManagingCursor(cursor);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
     }
 
 

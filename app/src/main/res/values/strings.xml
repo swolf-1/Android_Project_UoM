@@ -2,6 +2,10 @@
     <string name="app_name">Android_Project_UoM</string>
     <string name="facebook_app_id">3586803168036010</string>
     <string name="fb_login_protocol_scheme">fb3586803168036010</string>
+    <string name="title_activity_tabbed_for_posts">TabbedForPosts</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="title_activity_tabbed">Tabbed</string>
 
 
 </resources>

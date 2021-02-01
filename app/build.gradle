@@ -33,6 +33,7 @@ android {
         it.buildConfigField 'String', 'TwitterApiSecretKey', TWITTER_API_SECRET_KEY
         it.buildConfigField 'String', 'TwitterAccessToken', TWITTER_ACCESS_TOKEN
         it.buildConfigField 'String', 'TwitterAccessTokenSecret', TWITTER_ACCESS_TOKEN_SECRET
+        it.buildConfigField 'String', 'FacebookAccessToken', FACEBOOK_ACCESS_TOKEN
     }
     /*New one*/
     configurations.all{
@@ -47,6 +48,10 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'com.android.volley:volley:1.1.1'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:2.0.4'
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

@@ -26,6 +26,11 @@ public class TrendsActivity extends AppCompatActivity
     private RequestQueue mQueue;
     private ListView listView;
 
+    private static final String TWITTER_API_KEY = BuildConfig.TwitterApiKey;
+    private static final String TWITTER_API_SECRET = BuildConfig.TwitterApiSecretKey;
+    private static final String TWITTER_ACCESS_TOKEN = BuildConfig.TwitterAccessToken;
+    private static final String TWITTER_ACCESS_TOKEN_SECRET = BuildConfig.TwitterAccessTokenSecret;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -44,10 +49,10 @@ public class TrendsActivity extends AppCompatActivity
 
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
-                .setOAuthConsumerKey("nuol21SMZBdqPn9TOFhAoTxQG")
-                .setOAuthConsumerSecret("tXeYIizXrE0VmV30BwVf6ChyU2ceCpB6ojSD65Hg468E1vcASZ")
-                .setOAuthAccessToken("1323212607143219200-232hw2BbTW7q76CrGN0lNrBUsyi1f7")
-                .setOAuthAccessTokenSecret("i7TplqP1l0poJdlH8tKzeqSsiszt159K6bKGGUDktWILA");
+                .setOAuthConsumerKey(TWITTER_API_KEY)
+                .setOAuthConsumerSecret(TWITTER_API_SECRET)
+                .setOAuthAccessToken(TWITTER_ACCESS_TOKEN)
+                .setOAuthAccessTokenSecret(TWITTER_ACCESS_TOKEN_SECRET);
 
         TwitterFactory tf = new TwitterFactory(cb.build());
         twitter = tf.getInstance();

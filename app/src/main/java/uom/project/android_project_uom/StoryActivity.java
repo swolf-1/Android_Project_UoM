@@ -1,5 +1,6 @@
 package uom.project.android_project_uom;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -42,7 +43,6 @@ public class StoryActivity extends AppCompatActivity {
 
         fb_checkBox = findViewById(R.id.fb_checkBox);
         ig_checkBox = findViewById(R.id.ig_checkBox);
-        twitter_checkBox = findViewById(R.id.twitter_checkBox);
 
         theImage = findViewById(R.id.storyImage);
 
@@ -74,10 +74,8 @@ public class StoryActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
 
-                if (twitter_checkBox.isChecked())
-                {
 
-                }
+
             }
         });
 
@@ -85,7 +83,6 @@ public class StoryActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
 
 
@@ -132,7 +129,5 @@ public class StoryActivity extends AppCompatActivity {
 
     }
 
-    public void twitterPostStory(){
 
-    }
 }
